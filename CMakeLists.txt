@@ -1,6 +1,7 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.5)
 project(green_screen_matting)
-
+add_definitions(-std=c++11)
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
 add_executable(green_screen_matting main.cpp)
-
-install(TARGETS green_screen_matting RUNTIME DESTINATION bin)
+target_link_libraries(green_screen_matting ${OpenCV_LIBS})
