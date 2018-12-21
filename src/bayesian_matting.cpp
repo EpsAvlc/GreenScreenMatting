@@ -37,7 +37,7 @@ Mat BayesianMatting::Process(const Mat& ori_img, Mat& trimap)
     Eigen::Matrix3d foreground_cov;
     Eigen::Vector3d foreground_mean;
     calcMeanAndCovMatrix(foreground, foreground_mask, foreground_mean, foreground_cov);
-    imshow("foreground_before", foreground);
+    // imshow("foreground_before", foreground);
     Eigen::Matrix3d background_cov;
     Eigen::Vector3d background_mean;
     calcMeanAndCovMatrix(background, background_mask, background_mean, background_cov);
@@ -126,10 +126,12 @@ Mat BayesianMatting::Process(const Mat& ori_img, Mat& trimap)
         }
     }
 
-    cout << "Elasped " << (getTickCount() - cur_time) / getTickFrequency() << " s." << endl;
-    imshow("foreground_after", foreground);
-    imshow("trimap", uncertain_alpha_mat);
-    waitKey(0);
+    cout << "Baysian matting Elasped " << (getTickCount() - cur_time) / getTickFrequency() << " s." << endl;
+    // imshow("foreground_after", foreground);
+    // imshow("trimap", uncertain_alpha_mat);
+    // waitKey(0);
+
+    return foreground;
 }
 
 void BayesianMatting::calcMeanAndCovMatrix(const cv::Mat& img, const cv::Mat& mask, Eigen::Vector3d& mean_vec, Eigen::Matrix3d& cov)

@@ -3,8 +3,10 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
-                "/usr/include/eigen3"
+                "${workspaceFolder}/include",
+                "/usr/include/eigen3",
+                "/opt/ros/kinetic/include/opencv-3.3.1-dev",
+                "./include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",
