@@ -1,9 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+#include "opencv2/opencv.hpp"
 
 #include "color_matting.h"
 #include "bayesian_matting.h"
@@ -12,11 +10,41 @@
 using namespace std;
 using namespace cv;
 
+void ReadConfig(double ratio, Point2i& loc, bool save_video)
+{
+    FileStorage fs("../config/config.yml", FileStorage::READ);
+    assert(fs.isOpened());
+    fs["ratio"] >> ratio;
+    // cout << ratio << endl;
+    int tmp_x, tmp_y;
+    fs["img_loc_x"] >> tmp_x;
+    fs["img_loc_y"] >> tmp_y;
+    if(tmp_x < 0 || tmp_y < 0)
+    {
+        loc.x = 0;
+        loc.y = 0;
+    }
+    else
+    {
+        loc.x = tmp_x;
+        loc.y = tmp_y;
+    }
+    save_video = ((int)fs["save_video"] == 0) ? false : true;
+    cout << save_video << endl;
+    cout << loc << endl;
+}
+
 int main(int argc, char **argv) 
 {
     VideoCapture capture("../videos/human.mp4");
     VideoCapture capture_mix("../videos/cause_way.mp4");
     ColorMatting matting;
+
+    double ratio;
+    Point2i loc;
+    bool save_video;
+    ReadConfig(ratio, loc, save_video);
+    while(1);
 
     while (1)
 	{
