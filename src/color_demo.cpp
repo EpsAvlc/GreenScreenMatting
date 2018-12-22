@@ -10,7 +10,7 @@
 using namespace std;
 using namespace cv;
 
-void ReadConfig(double ratio, Point2i& loc, bool save_video)
+void ReadConfig(double& ratio, Point2i& loc, bool& save_video)
 {
     FileStorage fs("../config/config.yml", FileStorage::READ);
     assert(fs.isOpened());
@@ -30,8 +30,8 @@ void ReadConfig(double ratio, Point2i& loc, bool save_video)
         loc.y = tmp_y;
     }
     save_video = ((int)fs["save_video"] == 0) ? false : true;
-    cout << save_video << endl;
-    cout << loc << endl;
+    // cout << save_video << endl;
+    // cout << loc << endl;
 }
 
 int main(int argc, char **argv) 
@@ -44,8 +44,14 @@ int main(int argc, char **argv)
     Point2i loc;
     bool save_video;
     ReadConfig(ratio, loc, save_video);
-    while(1);
 
+    VideoWriter writer;
+    cout << save_video << endl;
+    if(save_video)
+    {
+        auto fourcc = VideoWriter::fourcc('D','I','V','X');
+        writer.open("../videos/output.avi", fourcc, 24, Size(960, 540));
+    }
     while (1)
 	{
 		Mat frame, frame_mix;
@@ -56,19 +62,22 @@ int main(int argc, char **argv)
 			break;
 		}
 
-        resize(frame, frame, Size(), 0.25, 0.25);
+        resize(frame, frame, Size(), ratio, ratio);
         resize(frame_mix, frame_mix, Size(), 0.5, 0.5);
         Mat foreground_mask = matting.Process(frame);
-
-        // Mat foreground;
         
-        Mat roi = frame_mix(Range(frame_mix.rows - frame.rows, frame_mix.rows), 
-                    Range(frame_mix.cols - frame.cols, frame_mix.cols));
+        Mat roi = frame_mix(Range(loc.y, loc.y + frame.rows), 
+                    Range(loc.x, loc.x + frame.cols));
         
         frame.copyTo(roi, foreground_mask);
 		imshow("video", frame_mix);
 
-
 		waitKey(10);
+
+        if(save_video)
+        {
+            writer.write(frame_mix);
+        }
 	}
+    return 0;
 }
