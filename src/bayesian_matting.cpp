@@ -131,7 +131,12 @@ Mat BayesianMatting::Process(const Mat& ori_img, Mat& trimap)
     // imshow("trimap", uncertain_alpha_mat);
     // waitKey(0);
 
-    return foreground;
+    return uncertain_alpha_mat;
+}
+
+cv::Mat MixImage(const cv::Mat& ori_img, cv::Mat& trimap, cv::Mat& bg, cv::Point2i loc)
+{
+    
 }
 
 void BayesianMatting::calcMeanAndCovMatrix(const cv::Mat& img, const cv::Mat& mask, Eigen::Vector3d& mean_vec, Eigen::Matrix3d& cov)

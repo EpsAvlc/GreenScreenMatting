@@ -1,6 +1,8 @@
 %YAML:1.0
 
 ratio: 0.25
-img_loc_x: 125
-img_loc_y: 125
+img_loc_x: 240
+img_loc_y: 240
 save_video: 1
+
+baysian_bear: 0

@@ -32,9 +32,9 @@ Mat TrimapGenerator::Process(const cv::Mat& ori_img)
 
     // high threshold to get certain foregournd mask
     Mat foreground_mask = Mat::zeros(ori_img.size(), CV_8UC1);
-    threshold(diff_img_bgr[0], b_thres, 100, 255, THRESH_BINARY);
-    threshold(diff_img_bgr[1], g_thres, 100, 255, THRESH_BINARY);
-    threshold(diff_img_bgr[2], r_thres, 100, 255, THRESH_BINARY);
+    threshold(diff_img_bgr[0], b_thres, 60, 255, THRESH_BINARY);
+    threshold(diff_img_bgr[1], g_thres, 60, 255, THRESH_BINARY);
+    threshold(diff_img_bgr[2], r_thres, 60, 255, THRESH_BINARY);
 
     bitwise_or(b_thres, g_thres, bg);
     bitwise_or(bg, r_thres, foreground_mask);
