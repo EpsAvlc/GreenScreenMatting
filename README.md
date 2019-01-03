@@ -38,3 +38,7 @@ OpenCV 3.0+ and Eigen is required.
   number={4}, 
   pages={264-271}}
 ```
+
+## Article
+
+For more implement details, please refer to my article [贝叶斯估计、最大似然估计、最大后验概率与Baysian Matting](https://epsavlc.github.io/2018/12/22/baysian-matting.html)
