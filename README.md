@@ -1,6 +1,6 @@
 # Green Screen Matting
 
-## An Implement of Green Screen Matting by Color Removal and Bayesian Matting
+## An Implementation of Green Screen Matting by Color Removal and Bayesian Matting
 
 This is an implement of Green Screen Matting through two methods: One is directly remove the pixel whose rgb value is close to green, and the other uses bayesian matting of paper **"A Bayesian Approach to Digital Matting"**.
 
